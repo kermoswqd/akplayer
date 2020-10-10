@@ -1,41 +1,68 @@
 <template>
-  <div class="banner">
-    <div class="block">
-      <el-carousel trigger="click" height="600px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <!-- <h3 class="small">{{ item }}</h3> -->
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-  </div>
+  <swiper class="swiper" :options="swiperOption">
+    <swiper-slide v-for="(v, i) of imgList" :key="i"
+      ><img :src="v.img" alt=""
+    /></swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+    <div class="swiper-button-prev" slot="button-prev"></div>
+    <div class="swiper-button-next" slot="button-next"></div>
+  </swiper>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
 export default {
-  mounted() {},
+  name: "swiper-example-autoplay",
+  title: "Autoplay",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+      imgList: [],
+      swiperOption: {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        // effect: "coverflow",
+        // freeMode: true,
+        effect: "fade",
+        fadeEffect: {
+          crossFade: true,
+        },
+        speed: 4000,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        loop: true,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
+    };
+  },
+  mounted() {
+    this.axios.get("/index").then((res) => {
+      // console.log(res.data);
+      res.data.forEach((el) => {
+        el.img = require("../assets/img/" + el.img);
+        this.imgList.push(el);
+      });
+    });
+  },
 };
 </script>
 
-<style>
-.banner {
-  width: 100%;
-}
-.banner img {
-  width: 100%;
-}
-/* .el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 150px;
-  margin: 0;
+<style scoped>
+/* .swiper-button-prev,
+.swiper-button-next {
+  color: aquamarine;
 } */
-
-.el-carousel__item:nth-child(odd) {
-  background: url("../assets/img/b1.jpg");
-}
-
-.el-carousel__item:nth-child(even) {
-  background: url("../assets/img/b3.jpg");
-}
 </style>

@@ -44,25 +44,25 @@ TRUNCATE TABLE `akplayer_index_carousel`;
 INSERT INTO `akplayer_index_carousel` (`cid`, `img`, `title`, `href`)
 VALUES (
     1,
-    'img/index/banner1.png',
+    'banner1.jpg',
     '轮播广告商品1',
     'product_details.html?lid=28'
   ),
   (
     2,
-    'img/index/banner2.png',
+    'banner2.jpg',
     '轮播广告商品2',
     'product_details.html?lid=19'
   ),
   (
     3,
-    'img/index/banner3.png',
+    'banner3.jpg',
     '轮播广告商品3',
     'lookforward.html'
   ),
   (
     4,
-    'img/index/banner4.png',
+    'banner4.jpg',
     '轮播广告商品4',
     'lookforward.html'
   );
